@@ -19,9 +19,9 @@ public class DatabaseUtility {
 	 * @throws SQLException
 	 */
 	public static Connection getConnection() throws SQLException {
-		String url = "";
-		String username = "";
-		String password = "";
+		String url = System.getenv("DB_URL");
+		String username = System.getenv("DB_USERNAME");
+		String password = System.getenv("DB_PASSWORD");
 		
 		Connection connection = null;
 		
