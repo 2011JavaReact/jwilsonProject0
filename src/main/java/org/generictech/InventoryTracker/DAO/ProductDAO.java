@@ -31,7 +31,48 @@ public class ProductDAO {
 		while (result.next()) {
 			products.add(new Product(result.getInt(1), result.getString(2), result.getString(3), result.getDouble(4)));
 		}
+		connection.close();
+		return products;
+	}
+	
+	/**
+	 * Method that queries the database for a single product with a specified ID value.
+	 * Because each ID value is unique, this query should only return a single product. 
+	 * @param id ID value of the desired product.
+	 * @return Product
+	 * @throws SQLException
+	 */
+	public ArrayList<Product> searchProductById(int id) throws SQLException {
+		String query = "SELECT * FROM product WHERE product_id = ?";
+		ArrayList<Product> products = new ArrayList<>();
+		Connection connection = DatabaseUtility.getConnection();
+		PreparedStatement stmt = connection.prepareStatement(query);
 		
+		stmt.setInt(1, id);
+		ResultSet result = stmt.executeQuery();
+		result.next();
+		products.add(new Product(result.getInt(1), result.getString(2), result.getString(3), result.getDouble(4)));
+		connection.close();
+		return products;
+	}
+	
+	/**
+	 * Method that searches for products based upon the product name. 
+	 * @param name Name of the desired product. 
+	 * @return ArrayList of the products that meet the search criteria. 
+	 * @throws SQLException
+	 */
+	public ArrayList<Product> searchProductByName(String name) throws SQLException {
+		String query = "SELECT * FROM product WHERE LOWER(product_name) LIKE LOWER(?)";
+		ArrayList<Product> products = new ArrayList<>();
+		Connection connection = DatabaseUtility.getConnection();
+		PreparedStatement stmt = connection.prepareStatement(query);
+		stmt.setString(1, "%" + name + "%");
+		ResultSet result = stmt.executeQuery();
+		while (result.next()) {
+			products.add(new Product(result.getInt(1), result.getString(2), result.getString(3), result.getDouble(4)));
+		}
+		connection.close();
 		return products;
 	}
 }

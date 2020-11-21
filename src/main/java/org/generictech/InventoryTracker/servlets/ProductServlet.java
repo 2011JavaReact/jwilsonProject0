@@ -2,6 +2,7 @@ package org.generictech.InventoryTracker.servlets;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.generictech.InventoryTracker.model.Product;
 import org.generictech.InventoryTracker.service.ProductService;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -38,20 +40,29 @@ public class ProductServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		ProductService productService = new ProductService();
-		
-		try {
-			res.getWriter().append(om.writeValueAsString(productService.getAllProducts()));
-		} catch (JsonProcessingException e) {
-			res.setStatus(500);
-			e.printStackTrace();
-		} catch (IOException e) {
-			res.setStatus(500);
-			e.printStackTrace();
-		} catch (SQLException e) {
-			res.setStatus(500);
-			e.printStackTrace();
+		if (req.getPathInfo() != null) {
+			try {
+				ArrayList<Product> p = productService.searchProducts(req.getPathInfo().split("/")[1]);
+				res.getWriter().append(om.writeValueAsString(p));
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				res.getWriter().append(om.writeValueAsString(productService.getAllProducts()));
+			} catch (JsonProcessingException e) {
+				res.setStatus(500);
+				e.printStackTrace();
+			} catch (IOException e) {
+				res.setStatus(500);
+				e.printStackTrace();
+			} catch (SQLException e) {
+				res.setStatus(500);
+				e.printStackTrace();
+			}
 		}
-		
 		res.setContentType("application/json");
 	}
 
