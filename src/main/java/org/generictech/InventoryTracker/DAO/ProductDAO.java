@@ -1,11 +1,15 @@
 package org.generictech.InventoryTracker.DAO;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+import org.generictech.InventoryTracker.DTO.ProductDTO;
 import org.generictech.InventoryTracker.model.Product;
 import org.generictech.InventoryTracker.utils.DatabaseUtility;
 
@@ -15,6 +19,9 @@ import org.generictech.InventoryTracker.utils.DatabaseUtility;
  * @since 1.0
  */
 public class ProductDAO {
+	
+	Logger logger = Logger.getLogger(ProductDAO.class);
+	
 	/**
 	 * Method that queries the database for all product records and coverts those records 
 	 * into product objects, and returns an array list of those product objects. 
@@ -50,8 +57,9 @@ public class ProductDAO {
 		
 		stmt.setInt(1, id);
 		ResultSet result = stmt.executeQuery();
-		result.next();
-		products.add(new Product(result.getInt(1), result.getString(2), result.getString(3), result.getDouble(4)));
+		if (result.next()) {
+			products.add(new Product(result.getInt(1), result.getString(2), result.getString(3), result.getDouble(4)));
+		}
 		connection.close();
 		return products;
 	}
@@ -75,4 +83,82 @@ public class ProductDAO {
 		connection.close();
 		return products;
 	}
+	
+	/**
+	 * Method to insert a new product into the database
+	 * @param productData data to be inserted
+	 * @return Product with all the product details, including the ID from the database/ 
+	 * @throws SQLException
+	 */
+	public Product insertProduct(ProductDTO productData) throws SQLException {
+		String query = "INSERT INTO product"
+				+ "(product_name, description, unitprice)"
+				+ "VALUES"
+				+ "(?,?,?)";
+		Connection connection = DatabaseUtility.getConnection();
+		PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+		stmt.setString(1, productData.getProductName());
+		stmt.setString(2, productData.getDescription());
+		stmt.setDouble(3, productData.getUnitPrice());
+		if (stmt.executeUpdate() != 1) {
+			throw new SQLException("No Rows Affected");
+		} 
+		
+		int id = 0;
+		ResultSet keys = stmt.getGeneratedKeys();
+		if (keys.next()) {
+			id = keys.getInt(1);
+		} else {
+			throw new SQLException("ID generation failed");
+		}
+		connection.close();
+		return new Product(id, productData.getProductName(), productData.getDescription(), productData.getUnitPrice());
+	}
+	
+	/**
+	 * Method to interact with the database to update all product fields. 
+	 * @param productData object containing the data
+	 * @param id int value for the ID of the desired product
+	 * @return product object with updated details 
+	 * @throws SQLException
+	 */
+	public Product updateProduct(ProductDTO productData, int id) throws SQLException {
+		String query = "UPDATE product"
+				+ " SET product_name = ?"
+				+ " , description = ?"
+				+ " , unitprice = ?"
+				+ " WHERE product_id = ?";
+		Connection connection = DatabaseUtility.getConnection();
+		PreparedStatement stmt = connection.prepareStatement(query);
+		stmt.setString(1, productData.getProductName());
+		stmt.setString(2, productData.getDescription());
+		stmt.setDouble(3, productData.getUnitPrice());
+		stmt.setInt(4, id);
+		if (stmt.executeUpdate() != 1) {
+			connection.close();
+			return null;
+		}
+		connection.close();
+		return new Product(id, productData.getProductName(), productData.getDescription(), productData.getUnitPrice());
+	}
+	
+	/**
+	 * Method to interact with the database to delete products.
+	 * @param id of the product to be deleted
+	 * @return boolean to state whether the delete was successful or not. 
+	 * @throws SQLException
+	 */
+	public boolean deleteProduct(int id) throws SQLException {
+		String query = "DELETE FROM product"
+				+ " WHERE product_id = ?";
+		Connection connection = DatabaseUtility.getConnection();
+		PreparedStatement stmt = connection.prepareStatement(query);
+		stmt.setInt(1, id);
+		if (stmt.executeUpdate() == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 }

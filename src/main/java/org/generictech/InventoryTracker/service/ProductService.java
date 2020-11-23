@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.generictech.InventoryTracker.DAO.ProductDAO;
+import org.generictech.InventoryTracker.DTO.ProductDTO;
 import org.generictech.InventoryTracker.model.Product;
 import org.generictech.InventoryTracker.utils.NumericUtility;
 
@@ -44,6 +45,37 @@ public class ProductService {
 			products = searchProductByName(param);
 		}
 		return products;
+	}
+	
+	/**
+	 * Method to handle new product inserts. 
+	 * @param productData
+	 * @return Product object with new product details. 
+	 */
+	public Product insertProduct(ProductDTO productData) throws SQLException {
+		return productDAO.insertProduct(productData);
+	}
+	
+	/**
+	 * Method to hand updating an entire product. This method will update each field with data 
+	 * specified in the productData object.
+	 * @param productData with updated information. 
+	 * @param id int value for the ID of the desired product to update
+	 * @return Product with updated data. 
+	 * @throws SQLException
+	 */
+	public Product updateProduct(ProductDTO productData, int id) throws SQLException {
+		return productDAO.updateProduct(productData, id);
+	}
+	
+	/**
+	 * Method to handle delete operations of products
+	 * @param id of product to be deleted
+	 * @return boolean stating if the delete was successful. 
+	 * @throws SQLException
+	 */
+	public boolean deleteProduct(int id) throws SQLException {
+		return productDAO.deleteProduct(id);
 	}
 	
 	/**
