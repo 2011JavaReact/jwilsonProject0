@@ -31,8 +31,8 @@ import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 public class ProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ObjectMapper om = new ObjectMapper();
-	Logger logger = Logger.getLogger(ProductDAO.class);
-	ProductService productService = new ProductService();
+	private Logger logger = Logger.getLogger(ProductServlet.class);
+	private ProductService productService = new ProductService();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -47,7 +47,7 @@ public class ProductServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		logger.info("GET request to /product");
-		if (req.getPathInfo() != null && req.getPathInfo().length() >= 2) {
+		if (req.getPathInfo() != null && req.getPathInfo().split("/").length == 2) {
 			try {
 				ArrayList<Product> p = productService.searchProducts(req.getPathInfo().split("/")[1]);
 				res.getWriter().append(om.writeValueAsString(p));
@@ -61,7 +61,9 @@ public class ProductServlet extends HttpServlet {
 				res.setStatus(400);
 				e.printStackTrace();
 			}
-		} else {
+		} else if (req.getPathInfo().split("/").length > 2) {
+			res.setStatus(400);
+		}else {
 			try {
 				res.getWriter().append(om.writeValueAsString(productService.getAllProducts()));
 			} catch (JsonProcessingException e) {
@@ -108,7 +110,7 @@ public class ProductServlet extends HttpServlet {
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		logger.info("PUT request to /product");
-		if (req.getPathInfo() == null || req.getPathInfo().length() != 2) {
+		if (req.getPathInfo() == null || req.getPathInfo().split("/").length != 2) {
 			res.setStatus(400);
 		} else {
 			String[] params = req.getPathInfo().split("/");
@@ -124,10 +126,14 @@ public class ProductServlet extends HttpServlet {
 		res.setContentType("application/json");
 	}
 
+	/**
+	 * Method for handling DELETE requests at the /product endpoints. 
+	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
+	 */
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		logger.info("DELETE request to /product");
-		if (req.getPathInfo() == null || req.getPathInfo().length() != 2) {
+		if (req.getPathInfo() == null || req.getPathInfo().split("/").length != 2) {
 			res.setStatus(400);
 		} else {
 			try {

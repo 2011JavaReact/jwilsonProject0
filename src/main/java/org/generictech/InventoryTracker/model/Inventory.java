@@ -1,5 +1,7 @@
 package org.generictech.InventoryTracker.model;
 
+import org.generictech.InventoryTracker.DTO.SystemUser;
+
 /**
  * Class to represent an inventory record.
  * @author Jaden Wilson
@@ -11,7 +13,7 @@ public class Inventory {
 	private int quantity;
 	private Product product;
 	private String lastUpdateDate;
-	private SystemUser lastUpdatedBy;
+	private User lastUpdatedBy;
 	
 	/**
 	 * No args constructor
@@ -28,7 +30,7 @@ public class Inventory {
 	 * @param lastUpdateDate String containing the date the inventory record was updated. 
 	 * @param lastUpdatedBy SystemUser object detailing which user last updated this inventory record (for management purposes).
 	 */
-	public Inventory(int inventoryId, int quantity, Product product, String lastUpdateDate, SystemUser lastUpdatedBy) {
+	public Inventory(int inventoryId, int quantity, Product product, String lastUpdateDate, User lastUpdatedBy) {
 		this.inventoryID = inventoryId;
 		this.quantity = quantity;
 		this.product = product;
@@ -102,17 +104,17 @@ public class Inventory {
 	
 	/**
 	 * Getter for lastUpdatedBy field
-	 * @return SystemUser object of the user who updated this record last.
+	 * @return User object of the user who updated this record last.
 	 */
-	public SystemUser getLastUpdatedBy() {
+	public User getLastUpdatedBy() {
 		return lastUpdatedBy;
 	}
 	
 	/**
 	 * Setter for lastUpdatedBy field
-	 * @param lastUpdatedBy SystemUser object with the details of the user who updated this record last. 
+	 * @param lastUpdatedBy User object with the details of the user who updated this record last. 
 	 */
-	public void setLastUpdatedBy(SystemUser lastUpdatedBy) {
+	public void setLastUpdatedBy(User lastUpdatedBy) {
 		this.lastUpdatedBy = lastUpdatedBy;
 	}
 

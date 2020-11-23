@@ -1,4 +1,4 @@
-package org.generictech.InventoryTracker.model;
+package org.generictech.InventoryTracker.DTO;
 /**
  * Class that represents a user of this inventory tracking system.
  * @author Jaden Wilson
