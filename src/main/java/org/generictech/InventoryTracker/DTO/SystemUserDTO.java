@@ -1,60 +1,37 @@
 package org.generictech.InventoryTracker.DTO;
-/**
- * Class that represents a user of this inventory tracking system.
- * @author Jaden Wilson
- * @since 1.0
- */
-public class SystemUser {
-	private int systemUserId;
+
+public class SystemUserDTO {
 	private String fName;
 	private String lName;
 	private String username;
 	private String password;
 	private boolean isManager;
-	private String salt;
 	
-	public SystemUser() {
+	/**
+	 * No args constructor
+	 */
+	public SystemUserDTO() {
 		super();
 	}
 	
 	/**
-	 * Constructor for a SystemUser object.
-	 * @param systemUserId Int value representing the id value of the user.
-	 * @param fName The first name of the user as a string.
-	 * @param lName The last name of the user as a string.
-	 * @param username The username of the user as a string.
-	 * @param password The user's password (should already be hashed) as a string.
-	 * @param isManager boolean value to determine if the user has management privileges.
-	 * @param salt String value to help randomize hashed password. 
+	 * Constructor for a NewSystemUser
+	 * @param fName String value for the fname
+	 * @param lName String value for the lname
+	 * @param username String value for the username
+	 * @param password String value representing the hashed password
+	 * @param isManager boolean value expressing if a user is a manager
+	 * @param salt String value of the salt to pair with the hashed password. 
 	 */
-	public SystemUser(int systemUserId, String fName, String lName, String username, String password, boolean isManager,
-			String salt) {
+	public SystemUserDTO(String fName, String lName, String username, String password, boolean isManager) {
 		super();
-		this.systemUserId = systemUserId;
 		this.fName = fName;
 		this.lName = lName;
 		this.username = username;
 		this.password = password;
 		this.isManager = isManager;
-		this.salt = salt;
 	}
-	
-	/**
-	 * Getter for the systemUserId.
-	 * @return int ID value for user. 
-	 */
-	public int getSystemUserId() {
-		return systemUserId;
-	}
-	
-	/**
-	 * Setter for the systemUserId.
-	 * @param systemUserId Int id value for the user.
-	 */
-	public void setSystemUserId(int systemUserId) {
-		this.systemUserId = systemUserId;
-	}
-	
+
 	/**
 	 * Getter for the fname field.
 	 * @return String First name of the user. 
@@ -123,7 +100,7 @@ public class SystemUser {
 	 * Getter for the isManager field
 	 * @return boolean value determining if the user has mangement privileges. 
 	 */
-	public boolean isManager() {
+	public boolean getIsManager() {
 		return isManager;
 	}
 	
@@ -131,34 +108,17 @@ public class SystemUser {
 	 * Setter for the isManager field
 	 * @param isManager boolean value if the user is a manager. 
 	 */
-	public void setManager(boolean isManager) {
+	public void setIsManager(boolean isManager) {
 		this.isManager = isManager;
 	}
 	
-	/**
-	 * Getter for the salt field
-	 * @return String value of the random salt. 
-	 */
-	public String getSalt() {
-		return salt;
-	}
-	
-	/**
-	 * Setter for the salt.
-	 * @param salt String value for the salt. 
-	 */
-	public void setSalt(String salt) {
-		this.salt = salt;
-	}
 
 	@Override
 	/**
 	 * Overridden toString method providing string representation of the systemUser object. 
 	 */
 	public String toString() {
-		return "SystemUser Details: [systemUserId=" + systemUserId + ", fName=" + fName + ", lName=" + lName + ", username="
-				+ username + ", password=" + password + ", isManager=" + isManager + ", salt=" + salt + "]";
+		return "SystemUser Details: fName=" + fName + ", lName=" + lName + ", username="
+				+ username + ", password=" + password + ", isManager=" + isManager + "]";
 	}
-	
-	
 }

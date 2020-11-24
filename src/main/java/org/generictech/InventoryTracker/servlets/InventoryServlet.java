@@ -127,6 +127,10 @@ public class InventoryServlet extends HttpServlet {
 		}
 	}
 	
+	/**
+	 * Method to handle DELETE requests to the /inventory endpoint. 
+	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
+	 */
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		logger.info("DELETE request made to /inventory endpoint");

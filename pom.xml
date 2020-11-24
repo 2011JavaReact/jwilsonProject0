@@ -47,6 +47,6 @@
 	</dependencies>
 
 	<build>
-		<finalName>InventoryTracker</finalName>
+		<finalName>inventorytracker</finalName>
 	</build>
 </project>
