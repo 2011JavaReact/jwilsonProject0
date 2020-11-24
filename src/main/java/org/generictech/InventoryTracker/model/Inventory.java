@@ -1,6 +1,5 @@
 package org.generictech.InventoryTracker.model;
 
-import org.generictech.InventoryTracker.DTO.SystemUser;
 
 /**
  * Class to represent an inventory record.

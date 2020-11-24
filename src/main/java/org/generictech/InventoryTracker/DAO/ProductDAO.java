@@ -57,6 +57,7 @@ public class ProductDAO {
 		
 		stmt.setInt(1, id);
 		ResultSet result = stmt.executeQuery();
+		stmt.close();
 		if (result.next()) {
 			products.add(new Product(result.getInt(1), result.getString(2), result.getString(3), result.getDouble(4)));
 		}
@@ -77,6 +78,7 @@ public class ProductDAO {
 		PreparedStatement stmt = connection.prepareStatement(query);
 		stmt.setString(1, "%" + name + "%");
 		ResultSet result = stmt.executeQuery();
+		stmt.close();
 		while (result.next()) {
 			products.add(new Product(result.getInt(1), result.getString(2), result.getString(3), result.getDouble(4)));
 		}
@@ -106,6 +108,7 @@ public class ProductDAO {
 		
 		int id = 0;
 		ResultSet keys = stmt.getGeneratedKeys();
+		stmt.close();
 		if (keys.next()) {
 			id = keys.getInt(1);
 		} else {
@@ -138,6 +141,7 @@ public class ProductDAO {
 			connection.close();
 			return null;
 		}
+		stmt.close();
 		connection.close();
 		return new Product(id, productData.getProductName(), productData.getDescription(), productData.getUnitPrice());
 	}
@@ -155,8 +159,12 @@ public class ProductDAO {
 		PreparedStatement stmt = connection.prepareStatement(query);
 		stmt.setInt(1, id);
 		if (stmt.executeUpdate() == 1) {
+			stmt.close();
+			connection.close();
 			return true;
 		} else {
+			stmt.close();
+			connection.close();
 			return false;
 		}
 	}

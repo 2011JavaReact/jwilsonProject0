@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.generictech.InventoryTracker.DAO.InventoryDAO;
+import org.generictech.InventoryTracker.DTO.InventoryDTO;
 import org.generictech.InventoryTracker.model.Inventory;
 import org.generictech.InventoryTracker.utils.NumericUtility;
 
@@ -25,6 +26,12 @@ public class InventoryService {
 		return inventoryDAO.getAllInventory();
 	}
 	
+	/**
+	 * Method to direct searching of inventory records.
+	 * @param param parameter from search request. 
+	 * @return ArrayList<Inventory> of the inventory records meeting the given requirements. 
+	 * @throws SQLException
+	 */
 	public ArrayList<Inventory> searchInventory(String param) throws SQLException {
 		ArrayList<Inventory> inventory = new ArrayList<>();
 		if (NumericUtility.isInt(param)) {
@@ -33,5 +40,15 @@ public class InventoryService {
 			inventory = inventoryDAO.searchInventoryByProductName(param);
 		}
 		return inventory;
+	}
+	
+	/**
+	 * Method to handle inserting of new inventory records
+	 * @param inventoryData object containing necessary inventory data. 
+	 * @return Inventory object with inserted inventory data. 
+	 * @throws SQLException
+	 */
+	public Inventory insertInventory(InventoryDTO inventoryData) throws SQLException {
+		return inventoryDAO.insertInventory(inventoryData);
 	}
 }
