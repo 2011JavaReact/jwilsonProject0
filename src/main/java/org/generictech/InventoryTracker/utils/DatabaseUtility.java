@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
 import org.postgresql.Driver;
 
 /**
@@ -19,6 +20,7 @@ public class DatabaseUtility {
 	 * @throws SQLException
 	 */
 	public static Connection getConnection() throws SQLException {
+		Logger logger = Logger.getLogger(DatabaseUtility.class);
 		String url = System.getenv("DB_URL");
 		String username = System.getenv("DB_USERNAME");
 		String password = System.getenv("DB_PASSWORD");
@@ -27,6 +29,7 @@ public class DatabaseUtility {
 		
 		DriverManager.registerDriver(new Driver());
 		connection = DriverManager.getConnection(url, username, password);
+		logger.info("Database Connection Established");
 		
 		return connection;
 	}

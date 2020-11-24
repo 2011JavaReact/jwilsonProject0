@@ -51,4 +51,25 @@ public class InventoryService {
 	public Inventory insertInventory(InventoryDTO inventoryData) throws SQLException, IndexOutOfBoundsException {
 		return inventoryDAO.insertInventory(inventoryData);
 	}
+	
+	/**
+	 * Mehtod to handle updating inventory records. 
+	 * @param inventoryData Data to update with
+	 * @param id value for the inventory record to be updated
+	 * @return Inventory object with updated details
+	 * @throws SQLException
+	 */
+	public Inventory updateInventory(InventoryDTO inventoryData, int id) throws SQLException {
+		return inventoryDAO.updateInventory(inventoryData, id);
+	}
+	
+	/**
+	 * Method to handle deleting inventory records
+	 * @param id value of the inventory record to be deleted
+	 * @return boolean value expressing if the delete worked properly. 
+	 * @throws SQLException
+	 */
+	public boolean deleteInventory(String id) throws SQLException, NumberFormatException {
+		return inventoryDAO.deleteInventory(Integer.parseInt(id));
+	}
 }

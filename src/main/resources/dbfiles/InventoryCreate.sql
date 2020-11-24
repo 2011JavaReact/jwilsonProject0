@@ -25,7 +25,7 @@ CREATE TABLE product
 CREATE TABLE inventory
 (	inventory_id SERIAL PRIMARY KEY
 ,	quantity INT NOT NULL
-,	product_id INT NOT NULL
+,	product_id INT UNIQUE NOT NULL
 , 	last_update_date DATE NOT NULL DEFAULT CURRENT_DATE
 , 	last_updated_by INT NOT NULL
 , 	CONSTRAINT fk_inventory_1 FOREIGN KEY (product_id) REFERENCES product(product_id)

@@ -150,4 +150,50 @@ public class InventoryDAO {
 		connection.close();
 		return new Inventory(id, inventoryData.getQuantity(), p, inventoryData.getLastUpdateDate(), u);
 	}
+	
+	/**
+	 * Method to handle database interactions dealing with updating an entire inventory record. 
+	 * @param inventoryData 
+	 * @param id value of inventory record to be updated. 
+	 * @return Inventory object with updated inventory data. 
+	 * @throws SQLException
+	 */
+	public Inventory updateInventory(InventoryDTO inventoryData, int id) throws SQLException {
+		String query = "UPDATE inventory"
+				+ " SET quantity = ?"
+				+ " , product_id = ?"
+				+ " , last_update_date = TO_DATE(?, 'YYY-MM-DD')"
+				+ " , last_updated_by = ?"
+				+ " WHERE inventory_id = ?";
+		Connection connection = DatabaseUtility.getConnection();
+		PreparedStatement stmt = connection.prepareStatement(query);
+		SystemUserService userService = new SystemUserService();
+		User u = userService.searchUsersByUsername(inventoryData.getUsername());
+		ProductService productService = new ProductService();
+		Product p = productService.searchProducts(inventoryData.getProductId() +  "").get(0);
+		stmt.setDouble(1, inventoryData.getQuantity());
+		stmt.setInt(2, inventoryData.getProductId());
+		stmt.setString(3, inventoryData.getLastUpdateDate());
+		stmt.setInt(4, u.getSystemUserId());
+		stmt.setInt(5, id);
+		if (stmt.executeUpdate() != 1) {
+			throw new SQLException("No Rows Affected");
+		}
+		stmt.close();
+		connection.close();
+		return new Inventory(id, inventoryData.getQuantity(), p, inventoryData.getLastUpdateDate(), u);
+	}
+	
+	public boolean deleteInventory(int id) throws SQLException {
+		String query = "DELETE FROM inventory"
+				+ " WHERE inventory_id = ?";
+		Connection connection = DatabaseUtility.getConnection();
+		PreparedStatement stmt = connection.prepareStatement(query);
+		stmt.setInt(1, id);
+		if (stmt.executeUpdate() == 1 ) {
+			return true;
+		} else {
+			throw new SQLException("No Rows Affected");
+		}
+	}
 }
