@@ -3,7 +3,6 @@ package org.generictech.InventoryTracker.servlets;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.generictech.InventoryTracker.DAO.ProductDAO;
 import org.generictech.InventoryTracker.DTO.ProductDTO;
 import org.generictech.InventoryTracker.model.Product;
 import org.generictech.InventoryTracker.service.ProductService;
@@ -61,7 +59,7 @@ public class ProductServlet extends HttpServlet {
 				res.setStatus(400);
 				e.printStackTrace();
 			}
-		} else if (req.getPathInfo().split("/").length > 2) {
+		} else if (req.getPathInfo() != null && req.getPathInfo().split("/").length > 2) {
 			res.setStatus(400);
 		}else {
 			try {

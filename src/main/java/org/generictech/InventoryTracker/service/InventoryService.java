@@ -48,7 +48,7 @@ public class InventoryService {
 	 * @return Inventory object with inserted inventory data. 
 	 * @throws SQLException
 	 */
-	public Inventory insertInventory(InventoryDTO inventoryData) throws SQLException {
+	public Inventory insertInventory(InventoryDTO inventoryData) throws SQLException, IndexOutOfBoundsException {
 		return inventoryDAO.insertInventory(inventoryData);
 	}
 }

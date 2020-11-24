@@ -121,15 +121,17 @@ public class InventoryDAO {
 	 * @return Inventory object with data that was inserted into the database. 
 	 * @throws SQLException
 	 */
-	public Inventory insertInventory(InventoryDTO inventoryData) throws SQLException {
+	public Inventory insertInventory(InventoryDTO inventoryData) throws SQLException, IndexOutOfBoundsException {
 		String query = "INSERT INTO inventory"
 				+ " (quantity, product_id, last_update_date, last_updated_by)"
 				+ " VALUES"
-				+ "(?,?,?,?)";
+				+ "(?,?,TO_DATE(?, 'YYYY-MM-DD'),?)";
 		Connection connection = DatabaseUtility.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 		SystemUserService userService = new SystemUserService();
+		ProductService productService = new ProductService();
 		User u = userService.searchUsersByUsername(inventoryData.getUsername());
+		Product p = productService.searchProducts(inventoryData.getProductId() +  "").get(0);
 		stmt.setInt(1, inventoryData.getQuantity());
 		stmt.setInt(2, inventoryData.getProductId());
 		stmt.setString(3, inventoryData.getLastUpdateDate());
@@ -139,13 +141,13 @@ public class InventoryDAO {
 		}
 		int id = 0;
 		ResultSet keys = stmt.getGeneratedKeys();
-		stmt.close();
 		if (keys.next()) {
 			id = keys.getInt(1);
 		} else {
 			throw new SQLException("ID generation failed");
 		}
+		stmt.close();
 		connection.close();
-		return searchInventoryById(id).get(0);
+		return new Inventory(id, inventoryData.getQuantity(), p, inventoryData.getLastUpdateDate(), u);
 	}
 }

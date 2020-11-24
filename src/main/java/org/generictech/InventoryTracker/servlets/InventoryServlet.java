@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.generictech.InventoryTracker.DTO.InventoryDTO;
 import org.generictech.InventoryTracker.service.InventoryService;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -64,8 +65,29 @@ public class InventoryServlet extends HttpServlet {
 	}
 	
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		logger.info("POST request to /inventory endpoint");
+		
+		if (req.getPathInfo() != null) {
+			res.setStatus(400);
+		} else {
+			try {
+				InventoryDTO inventoryData = om.readValue(req.getReader(), InventoryDTO.class);
+				res.getWriter().append(om.writeValueAsString(inventoryService.insertInventory(inventoryData)));
+				res.setContentType("application/json");
+			} catch (JsonProcessingException e) {
+				res.setStatus(400);
+				e.printStackTrace();
+			} catch (IOException e) {
+				res.setStatus(400);
+				e.printStackTrace();
+			} catch (SQLException e) {
+				res.setStatus(400);
+				e.printStackTrace();
+			} catch (IndexOutOfBoundsException e) {
+				res.setStatus(400);
+				e.printStackTrace();
+			}
+		}
 	}
 }
