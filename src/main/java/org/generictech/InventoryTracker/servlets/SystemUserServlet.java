@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.generictech.InventoryTracker.DTO.SystemUserDTO;
@@ -33,6 +34,12 @@ public class SystemUserServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		HttpSession session = req.getSession(false);
+		if (session == null || !(boolean)session.getAttribute("isManager")) {
+			res.setStatus(401);
+			return;
+		}
+		logger.info("POST request to /systemuser");
 		if (req.getPathInfo() != null) {
 			res.setStatus(400);
 		} else {
@@ -52,6 +59,12 @@ public class SystemUserServlet extends HttpServlet {
 	
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		HttpSession session = req.getSession(false);
+		if (session == null || !(boolean)session.getAttribute("isManager")) {
+			res.setStatus(401);
+			return;
+		}
+		
 		logger.info("DELETE request to /systemuser");
 		if (req.getPathInfo() == null || req.getPathInfo().split("/").length != 2) {
 			res.setStatus(400);

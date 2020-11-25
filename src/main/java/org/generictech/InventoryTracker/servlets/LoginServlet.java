@@ -24,14 +24,47 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author Jaden Wilson
  * @since 1.0
  */
-@WebServlet(urlPatterns= {"/login"})
+@WebServlet(urlPatterns= {"/login", "/logout"})
 public class LoginServlet extends HttpServlet {
 	private ObjectMapper om = new ObjectMapper();
 	private Logger logger = Logger.getLogger(LoginServlet.class);
 	private LoginService loginService = new LoginService();
 	
 	@Override
+		protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+			if (req.getSession(false) != null && req.getServletPath().equals("/logout")) {
+				logger.info("GET request to /logout enpoint");
+				HttpSession s = req.getSession(false);
+				String username = (String) s.getAttribute("username");
+				s.invalidate();
+				if (req.getSession(false) == null) {
+					logger.info("user " + username + " logged out");
+					res.setStatus(204);
+				} else {
+					res.setStatus(500);
+				}
+			} else {
+				if (req.getServletPath().equals("/login")) {
+					res.setStatus(404);
+				} else if (req.getSession(false) == null) {
+					res.setStatus(401);
+				} else {
+					res.setStatus(400);
+				}
+			}
+		}
+	
+	/**
+	 * Method to handle POST requests to the /login endpoint
+	 * @see HttpServlet#doPost(HttpServletRequest, HttpServletResponse)
+	 */
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		if (req.getServletPath().equals("/logout")) {
+			res.setStatus(404);
+			return;
+		}
+		
 		logger.info("POST request to /login");
 		
 		try {
@@ -42,6 +75,7 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("systemUserId", u.getSystemUserId());
 				session.setAttribute("username", u.getUsername());
 				session.setAttribute("isManager", u.isManager());
+				logger.info("Successful login for user: " + u.getUsername());
 				res.getWriter().append(om.writeValueAsString(u));
 				res.setContentType("application/json");				
 			} else {

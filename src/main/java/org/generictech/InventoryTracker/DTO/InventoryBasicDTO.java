@@ -1,35 +1,54 @@
 package org.generictech.InventoryTracker.DTO;
 
+import org.generictech.InventoryTracker.model.Product;
+
 /**
- * Class for tranfering data pertaining to Inventory records
+ * Class to handle data tranfer of inventory data for basic user without
+ * manager permissions. Removes the lastUpdateBy field.
  * @author Jaden Wilson
- * @since 1.0
+ * @since 1.1
  */
-public class InventoryDTO {
+public class InventoryBasicDTO {
+	private int inventoryID;
 	private int quantity;
-	private int productId;
+	private Product product;
 	private String lastUpdateDate;
-	private String username;
-	
+
 	/**
 	 * No args constructor
 	 */
-	public InventoryDTO() {
+	public InventoryBasicDTO() {
 		super();
 	}
 
 	/**
-	 * Constructor with parameters for each field. 
+	 * Constructor with parameters for each field.
+	 * @param inventoryID
 	 * @param quantity
-	 * @param productId
+	 * @param product
 	 * @param lastUpdateDate
-	 * @param username
 	 */
-	public InventoryDTO(int quantity, int productId, String lastUpdateDate, String username) {
+	public InventoryBasicDTO(int inventoryID, int quantity, Product product, String lastUpdateDate) {
+		this.inventoryID = inventoryID;
 		this.quantity = quantity;
-		this.productId = productId;
+		this.product = product;
 		this.lastUpdateDate = lastUpdateDate;
-		this.username = username;
+	}
+
+	/**
+	 * Getter for inventoryID field
+	 * @return int value of inventory ID
+	 */
+	public int getInventoryID() {
+		return inventoryID;
+	}
+
+	/**
+	 * Setter for inventoryID field
+	 * @param inventoryID int value for inventory id
+	 */
+	public void setInventoryID(int inventoryID) {
+		this.inventoryID = inventoryID;
 	}
 
 	/**
@@ -52,16 +71,16 @@ public class InventoryDTO {
 	 * Getter for product field
 	 * @return Product object of the specified product
 	 */
-	public int getProductId() {
-		return productId;
+	public Product getProduct() {
+		return product;
 	}
 	
 	/**
 	 * Setter for product field
 	 * @param product Product object for product 
 	 */
-	public void setProductId(int productId) {
-		this.productId = productId;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 	
 	/**
@@ -79,26 +98,10 @@ public class InventoryDTO {
 	public void setLastUpdateDate(String lastUpdateDate) {
 		this.lastUpdateDate = lastUpdateDate;
 	}
-
-	/**
-	 * Getter for username field
-	 * @return String valdue for username
-	 */
-	public String getUsername() {
-		return username;
-	}
-
-	/**
-	 * Setter for username field
-	 * @param username value for field
-	 */
-	public void setUsername(String username) {
-		this.username = username;
-	}
+	
 
 	@Override
 	public String toString() {
-		return "InventoryDTO Details: [quantity=" + quantity + ", productId=" + productId + ", lastUpdateDate=" + lastUpdateDate
-				+ ", username=" + username + "]";
+		return "InventoryBasicDTO Details: [inventoryID " + inventoryID + " quantity=" + quantity + ", product=" + product + "]";
 	}	
 }

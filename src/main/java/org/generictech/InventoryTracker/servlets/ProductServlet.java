@@ -44,6 +44,11 @@ public class ProductServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		if (req.getSession(false) == null) {
+			res.setStatus(401);
+			return;
+		}
+		
 		logger.info("GET request to /product");
 		if (req.getPathInfo() != null && req.getPathInfo().split("/").length == 2) {
 			try {
@@ -83,6 +88,11 @@ public class ProductServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		if (req.getSession(false) == null) {
+			res.setStatus(401);
+			return;
+		}
+		
 		logger.info("POST request to /product");
 		if (req.getPathInfo() != null) {
 			res.setStatus(400);
@@ -107,6 +117,11 @@ public class ProductServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		if (req.getSession(false) == null) {
+			res.setStatus(401);
+			return;
+		}
+		
 		logger.info("PUT request to /product");
 		if (req.getPathInfo() == null || req.getPathInfo().split("/").length != 2) {
 			res.setStatus(400);
@@ -130,6 +145,11 @@ public class ProductServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		if (req.getSession(false) == null) {
+			res.setStatus(401);
+			return;
+		}
+		
 		logger.info("DELETE request to /product");
 		if (req.getPathInfo() == null || req.getPathInfo().split("/").length != 2) {
 			res.setStatus(400);

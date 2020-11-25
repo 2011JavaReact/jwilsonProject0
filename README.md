@@ -124,7 +124,7 @@ A GET request to the /inventory endpoint will return the entire inventory. Examp
 ]
 ```
 Searching can also be accomplished by adding the product id or partial product name to the URI. (Searching is done based upon products because they are usually the important part of the inventory record.)
-> /inventory/{id}
+> /inventory/{productId}
 
 or 
 > /inventory/{partial_product_name_string}
@@ -170,6 +170,8 @@ A PUT request to the /inventory enpoint will update inventory records on the dat
     "username": "imaster"
 }
 ```
+All fields are necessary, but each can be altered as desired.
+
 The response should contain the data within the inventory record.
 ```json 
 {
@@ -189,7 +191,6 @@ The response should contain the data within the inventory record.
     }
 }
 ```
-All information is needed again due to fully overwriting the database record. individual field updates are a feature for a later version.
 ### DELETE /inventory
 A DELETE request to the /inventory endpoint will delete inventory records from the database. Requests to delete should detail the id of the item to be deleted in the URI.
 >/inventory/{id}
@@ -257,6 +258,7 @@ also be sure to set the following environment variables
 Once the configuration of these tools has been completed:
 
 1. run the InventoryCreate.sql on your postgresql instance to create the database. 
+    - be sure to comment out insert statements if you do not want test data in your database.
 2. run the following command to package the project into a war file.
 > mvn clean package 
 
