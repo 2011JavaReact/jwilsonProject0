@@ -1,4 +1,4 @@
-package org.generictech.InventoryTracker.tests;
+package org.generictech.InventoryTracker.junit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
