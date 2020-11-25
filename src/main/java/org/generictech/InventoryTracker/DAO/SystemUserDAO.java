@@ -44,6 +44,13 @@ public class SystemUserDAO {
 		}
 	}
 	
+	/**
+	 * Method to interact with the database for inserting a new system user. 
+	 * @param systemUserData
+	 * @param salt
+	 * @return User object with basic user data
+	 * @throws SQLException
+	 */
 	public User insertSystemUser(SystemUserDTO systemUserData, String salt) throws SQLException {
 		String query = "INSERT INTO system_user"
 				+ " (fname, lname, username, password, ismanager, salt)"
@@ -75,5 +82,28 @@ public class SystemUserDAO {
 		stmt.close();
 		connection.close();
 		return new User(id, systemUserData.getUsername(), systemUserData.getIsManager());
+	}
+	
+	/**
+	 * Method to interact with the database to delete a system user. 
+	 * @param id
+	 * @return boolean stating if the delete operation succeeded
+	 * @throws SQLException
+	 */
+	public boolean deleteSystemUser(int id) throws SQLException {
+		String query = "DELETE FROM system_user"
+				+ " WHERE system_user_id = ?";
+		Connection connection = DatabaseUtility.getConnection();
+		PreparedStatement stmt = connection.prepareStatement(query);
+		stmt.setInt(1, id);
+		if (stmt.executeUpdate() == 1) {
+			stmt.close();
+			connection.close();
+			return true;
+		} else {
+			stmt.close();
+			connection.close();
+			return false;
+		}
 	}
 }

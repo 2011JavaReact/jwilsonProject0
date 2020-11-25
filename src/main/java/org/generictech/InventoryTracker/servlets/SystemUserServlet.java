@@ -49,4 +49,27 @@ public class SystemUserServlet extends HttpServlet {
 			}
 		}
 	}
+	
+	@Override
+	protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		logger.info("DELETE request to /systemuser");
+		if (req.getPathInfo() == null || req.getPathInfo().split("/").length != 2) {
+			res.setStatus(400);
+		} else {
+			try {
+				boolean success = systemUserService.deleteSystemUser(Integer.parseInt(req.getPathInfo().split("/")[1]));
+				if (success) {
+					res.setStatus(204);
+				} else {
+					res.setStatus(400);
+				}
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+				res.setStatus(400);
+			} catch (SQLException e) {
+				res.setStatus(400);
+				e.printStackTrace();
+			}
+		}
+	}
 }

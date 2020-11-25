@@ -105,12 +105,13 @@ public class ProductDAO {
 		
 		int id = 0;
 		ResultSet keys = stmt.getGeneratedKeys();
-		stmt.close();
+
 		if (keys.next()) {
 			id = keys.getInt(1);
 		} else {
 			throw new SQLException("ID generation failed");
 		}
+		stmt.close();
 		connection.close();
 		return new Product(id, productData.getProductName(), productData.getDescription(), productData.getUnitPrice());
 	}

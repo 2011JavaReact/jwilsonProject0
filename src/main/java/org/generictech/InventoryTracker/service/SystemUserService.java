@@ -40,4 +40,8 @@ public class SystemUserService {
 		systemUserData.setPassword(hash.generateHash(systemUserData.getPassword(), salt.getBytes()));
 		return systemUserDAO.insertSystemUser(systemUserData, salt);
 	}
+	
+	public boolean deleteSystemUser(int id) throws SQLException {
+		return systemUserDAO.deleteSystemUser(id);
+	}
 }
