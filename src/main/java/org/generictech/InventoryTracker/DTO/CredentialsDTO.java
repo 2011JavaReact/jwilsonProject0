@@ -10,6 +10,24 @@ public class CredentialsDTO {
 	private String password;
 	
 	/**
+	 * No args constructor
+	 */
+	public CredentialsDTO() {
+		super();
+	}
+	
+	/**
+	 * Contructor with parameters
+	 * @param username
+	 * @param password
+	 */
+	public CredentialsDTO(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
+
+	/**
 	 * Getter for the username
 	 * @return String username
 	 */

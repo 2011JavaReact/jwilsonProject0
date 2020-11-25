@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import org.apache.log4j.Logger;
 import org.generictech.InventoryTracker.DTO.ProductDTO;
 import org.generictech.InventoryTracker.model.Product;
 import org.generictech.InventoryTracker.utils.DatabaseUtility;
@@ -19,9 +18,7 @@ import org.generictech.InventoryTracker.utils.DatabaseUtility;
  * @since 1.0
  */
 public class ProductDAO {
-	
-	Logger logger = Logger.getLogger(ProductDAO.class);
-	
+		
 	/**
 	 * Method that queries the database for all product records and coverts those records 
 	 * into product objects, and returns an array list of those product objects. 

@@ -19,6 +19,22 @@ public class ProductService {
 	 * Field for productDAO instance for utilizing DAO methods
 	 */
 	private ProductDAO productDAO = new ProductDAO();
+	
+	
+	/**
+	 * No arg constructor
+	 */
+	public ProductService() {
+		super();
+	}
+
+	/**
+	 * Constructor with all parameters (primarily for testing purposes)
+	 * @param productDAO
+	 */
+	public ProductService(ProductDAO productDAO) {
+		this.productDAO = productDAO;
+	}
 
 	/**
 	 * Method to get all products from the database. 

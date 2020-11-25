@@ -17,6 +17,21 @@ import org.generictech.InventoryTracker.utils.NumericUtility;
 public class InventoryService {
 
 	InventoryDAO inventoryDAO = new InventoryDAO();
+	
+	/**
+	 * No args constructor
+	 */
+	public InventoryService() {
+		super();
+	}
+	
+	/**
+	 * Constructor for the InventoryService class
+	 * @param inventoryDAO
+	 */
+	public InventoryService(InventoryDAO inventoryDAO) {
+		this.inventoryDAO = inventoryDAO;
+	}
 	/**
 	 * Method to handle getting all inventory records
 	 * @return ArrayList<Inventory> of all inventory records 
