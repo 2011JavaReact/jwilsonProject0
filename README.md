@@ -235,6 +235,7 @@ A 200 status response will be returned with basic user data.
     "manager": true
 }
 ```
+An unsuccessful login will return a response status 401.
 ### DELETE /systemuser
 This request will delete a system user. Requests should be sent with the id of the desired user in the URI.
 > /systemuser/{id}
