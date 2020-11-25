@@ -1,12 +1,12 @@
 package org.generictech.InventoryTracker.service;
 
-import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import org.generictech.InventoryTracker.DAO.LoginDAO;
 import org.generictech.InventoryTracker.DTO.AuthDTO;
 import org.generictech.InventoryTracker.DTO.CredentialsDTO;
+import org.generictech.InventoryTracker.model.User;
 import org.generictech.InventoryTracker.utils.PasswordHashingUtility;
 
 /**
@@ -17,9 +17,15 @@ import org.generictech.InventoryTracker.utils.PasswordHashingUtility;
 public class LoginService {
 	private LoginDAO loginDAO = new LoginDAO();
 	
-	public boolean login(CredentialsDTO credentials) throws SQLException, NoSuchAlgorithmException {
+	public User login(CredentialsDTO credentials) throws SQLException, NoSuchAlgorithmException {
 		AuthDTO authData =  loginDAO.getLoginInfo(credentials.getUsername());
 		PasswordHashingUtility hash = new PasswordHashingUtility();
-		return hash.validatePassword(credentials.getPassword(), authData.getPassword(), authData.getSalt());
+		boolean success =  hash.validatePassword(credentials.getPassword(), authData.getPassword()
+				, authData.getSalt());
+		if (success) {
+			return new User(authData.getSystemUserId(), authData.getUsername(), authData.getIsManager());
+		} else {
+			return null;
+		}
 	}
 }

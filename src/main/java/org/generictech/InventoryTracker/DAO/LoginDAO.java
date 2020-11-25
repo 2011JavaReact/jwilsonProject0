@@ -37,6 +37,8 @@ public class LoginDAO {
 			return new AuthDTO(result.getInt(1), result.getString(2), result.getString(3)
 					, result.getString(4), result.getBoolean(5));
 		} else {
+			stmt.close();
+			connection.close();
 			throw new SQLException("No results.");
 		}
 	}

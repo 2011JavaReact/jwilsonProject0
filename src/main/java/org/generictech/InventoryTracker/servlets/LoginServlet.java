@@ -9,9 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.generictech.InventoryTracker.DTO.CredentialsDTO;
+import org.generictech.InventoryTracker.model.User;
 import org.generictech.InventoryTracker.service.LoginService;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -32,10 +34,19 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		logger.info("POST request to /login");
 		
-		CredentialsDTO credentials = om.readValue(req.getReader(), CredentialsDTO.class);
 		try {
-			res.getWriter().append(om.writeValueAsString(loginService.login(credentials)));
-			res.setContentType("application/json");
+			CredentialsDTO credentials = om.readValue(req.getReader(), CredentialsDTO.class);
+			User u = loginService.login(credentials);
+			if (u != null) {
+				HttpSession session =  req.getSession();
+				session.setAttribute("systemUserId", u.getSystemUserId());
+				session.setAttribute("username", u.getUsername());
+				session.setAttribute("isManager", u.isManager());
+				res.getWriter().append(om.writeValueAsString(u));
+				res.setContentType("application/json");				
+			} else {
+				res.setStatus(401);
+			}
 		} catch (JsonProcessingException e) {
 			res.setStatus(400);
 			e.printStackTrace();

@@ -191,6 +191,8 @@ public class InventoryDAO {
 		PreparedStatement stmt = connection.prepareStatement(query);
 		stmt.setInt(1, id);
 		if (stmt.executeUpdate() == 1 ) {
+			stmt.close();
+			connection.close();
 			return true;
 		} else {
 			throw new SQLException("No Rows Affected");

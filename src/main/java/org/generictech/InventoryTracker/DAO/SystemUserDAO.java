@@ -38,6 +38,8 @@ public class SystemUserDAO {
 			connection.close();
 			return new User(result.getInt("system_user_id"), username, result.getBoolean("ismanager"));
 		} else {
+			stmt.close();
+			connection.close();
 			throw new SQLException("No results.");
 		}
 	}
