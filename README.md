@@ -5,6 +5,9 @@ This application acts as the backend for a simple Inventory Tracking application
 Users of this application can read, add, update, and remove products, as well as their related inventory records. Managers can even see more details such as which user updated the inventory last. 
 
 # API Description
+The URL for this API will contain your server IP address and port, followed by:
+> /inventorytracker/{endpoint}/{options}
+
 ## /product Endpoint
 This endpoint handles all operations dealing with products.
 ### GET /product
@@ -250,7 +253,7 @@ also be sure to set the following environment variables
    - DB_USERNAME
    - DB_PASSWORD
 
-Once all configurations of these tools has been completed:
+Once the configuration of these tools has been completed:
 
 1. run the InventoryCreate.sql on your postgresql instance to create the database. 
 2. run the following command to package the project into a war file.
