@@ -120,6 +120,11 @@ A GET request to the /inventory endpoint will return the entire inventory. Examp
   ...
 ]
 ```
+Searching can also be accomplished by adding the product id or partial product name to the URI. (Searching is done based upon products because they are usually the important part of the inventory record.)
+> /inventory/{id}
+
+or 
+> /inventory/{partial_product_name_string}
 ### POST /inventory
 A POST request to the /inventory enpoint will insert a new inventory record into the databse. 
 Example input :
