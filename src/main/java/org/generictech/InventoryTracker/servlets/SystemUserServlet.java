@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.generictech.InventoryTracker.DTO.SystemUserDTO;
-import org.generictech.InventoryTracker.model.User;
 import org.generictech.InventoryTracker.service.SystemUserService;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -57,6 +56,11 @@ public class SystemUserServlet extends HttpServlet {
 		}
 	}
 	
+	/**
+	 * Method to handle DELETE requests to the /systemUser endpoint. Requests
+	 * should come in with the id value of the system user to be deleted. 
+	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse) 
+	 */
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		HttpSession session = req.getSession(false);

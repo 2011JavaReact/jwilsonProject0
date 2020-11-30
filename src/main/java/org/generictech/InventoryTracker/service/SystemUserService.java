@@ -41,6 +41,12 @@ public class SystemUserService {
 		return systemUserDAO.insertSystemUser(systemUserData, salt);
 	}
 	
+	/**
+	 * Method to handle deleting of system users
+	 * @param id
+	 * @return boolean stating whether or not the delete was successful.
+	 * @throws SQLException
+	 */
 	public boolean deleteSystemUser(int id) throws SQLException {
 		return systemUserDAO.deleteSystemUser(id);
 	}

@@ -119,6 +119,6 @@ public class AuthDTO {
 	 * Overridden toString method providing string representation of the systemUser object. 
 	 */
 	public String toString() {
-		return "SystemUser Details: [username=" + username + ", password=" + password + "isManager= " + isManager + "]";
+		return "AuthDTO Details: [username=" + username + ", password=" + password + "isManager= " + isManager + "]";
 	}
 }

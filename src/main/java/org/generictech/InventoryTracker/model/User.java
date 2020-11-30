@@ -87,7 +87,7 @@ public class User {
 	 * Overridden toString method providing string representation of the systemUser object. 
 	 */
 	public String toString() {
-		return "SystemUser Details: [systemUserId=" + systemUserId + ", username="
+		return "User Details: [systemUserId=" + systemUserId + ", username="
 				+ username + ", isManager=" + isManager  + "]";
 	}
 }

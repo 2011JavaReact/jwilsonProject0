@@ -67,9 +67,9 @@ VALUES
 (	'Test'	
 , 	'Tester'
 ,	'imaster'
-,	'$upper$ecurePa$$word'
+,	'0fa4a0f6a4698662af20faf25440b3f2ee8c16179042d6e157744a9e4f43bdfb'
 ,	TRUE 
-,	'na'
+,	'0775418fdb7166ead7d7c9fc8a1af492'
 );
 
 

@@ -30,6 +30,11 @@ public class LoginServlet extends HttpServlet {
 	private Logger logger = Logger.getLogger(LoginServlet.class);
 	private LoginService loginService = new LoginService();
 	
+	/**
+	 * Method to handle get requests to the /logout enpoint. Requests made to the /login endpoint
+	 * will be returned with a 404 status. 
+	 * @see HttpServlet#doGet(HttpServletRequest, HttpServletResponse)
+	 */
 	@Override
 		protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 			if (req.getSession(false) != null && req.getServletPath().equals("/logout")) {

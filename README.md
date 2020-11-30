@@ -9,7 +9,7 @@ The URL for this API will contain your server IP address and port, followed by:
 > /inventorytracker/{endpoint}/{options}
 
 ## /product Endpoint
-This endpoint handles all operations dealing with products.
+This endpoint handles all operations dealing with products. Users must be logged in to access this endpoint. 
 ### GET /product
 Get all products in the database as an array. Example output below:
 ```json
@@ -83,7 +83,7 @@ DELETE requests will delete the specified product from the database. Requests sh
 If the DELETE is successful, the response will be a status code 204 response. 
 
 ## /inventory Endpoint
-This endpoint deals with all requests pertaining to inventory records. 
+This endpoint deals with all requests pertaining to inventory records. Users must be logged in to access this endpoint. 
 ### GET /inventory
 A GET request to the /inventory endpoint will return the entire inventory. Example output below:
 ```json
@@ -123,6 +123,7 @@ A GET request to the /inventory endpoint will return the entire inventory. Examp
   ...
 ]
 ```
+(LastUpdatedBy data will be excluded for standard users.)
 Searching can also be accomplished by adding the product id or partial product name to the URI. (Searching is done based upon products because they are usually the important part of the inventory record.)
 > /inventory/{productId}
 
@@ -158,6 +159,7 @@ Example response:
     }
 }
 ```
+(LastUpdatedBy data will be excluded for standard users.)
 ### PUT /inventory
 A PUT request to the /inventory enpoint will update inventory records on the database. The id value of the inventory record you want to update should be included in the URI
 > /inventory/{id}
@@ -167,7 +169,6 @@ A PUT request to the /inventory enpoint will update inventory records on the dat
     "quantity": 35,
     "productId": 4,
     "lastUpdateDate": "2020-11-23",
-    "username": "imaster"
 }
 ```
 All fields are necessary, but each can be altered as desired.
@@ -191,6 +192,7 @@ The response should contain the data within the inventory record.
     }
 }
 ```
+(LastUpdatedBy data will be excluded for standard users.)
 ### DELETE /inventory
 A DELETE request to the /inventory endpoint will delete inventory records from the database. Requests to delete should detail the id of the item to be deleted in the URI.
 >/inventory/{id}
@@ -213,6 +215,11 @@ If authentication is successful a response status 200 will be returned, along wi
     "manager": false
 }
 ```
+
+## /logout Endpoint
+This endpoint handles logging out. 
+### GET /logout
+Making a GET request to /logout will invalidate the users session. The response to a successful logout will be a status code 204. 
 
 ## /systemuser Endpoint
 This endpoint deals with users.
@@ -258,10 +265,12 @@ also be sure to set the following environment variables
 Once the configuration of these tools has been completed:
 
 1. run the InventoryCreate.sql on your postgresql instance to create the database. 
-    - be sure to comment out insert statements if you do not want test data in your database.
+    - be sure to comment out product and inventory insert statements if you do not want test data in your database.
 2. run the following command to package the project into a war file.
 > mvn clean package 
 
 3. copy the war file from the target directory into the webapps directory of your tomcat installation. 
 4. start your tomcat server and begin testing.
+    - default credentials : username- imaster password- password.
+    - please use this user account to create a new admin user and delete the default user for security. 
 

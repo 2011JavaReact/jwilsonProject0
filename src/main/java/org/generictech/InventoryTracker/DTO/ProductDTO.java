@@ -86,7 +86,7 @@ public class ProductDTO {
 	 * Overridden implementation of the toString function.
 	 */
 	public String toString() {
-		return "Product Details: [productName=" + productName + ", description=" + description
+		return "ProductDTO Details: [productName=" + productName + ", description=" + description
 				+ ", unitPrice=" + unitPrice + "]";
 	}
 }

@@ -118,7 +118,7 @@ public class SystemUserDTO {
 	 * Overridden toString method providing string representation of the systemUser object. 
 	 */
 	public String toString() {
-		return "SystemUser Details: fName=" + fName + ", lName=" + lName + ", username="
+		return "SystemUserDTO Details: fName=" + fName + ", lName=" + lName + ", username="
 				+ username + ", password=" + password + ", isManager=" + isManager + "]";
 	}
 }

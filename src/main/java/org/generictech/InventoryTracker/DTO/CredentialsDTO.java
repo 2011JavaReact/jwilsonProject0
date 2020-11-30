@@ -65,6 +65,6 @@ public class CredentialsDTO {
 	 * Overridden toString method providing string representation of the systemUser object. 
 	 */
 	public String toString() {
-		return "SystemUser Details: [username=" + username + ", password=" + password + "]";
+		return "CredentialsDTO Details: [username=" + username + ", password=" + password + "]";
 	}
 }
