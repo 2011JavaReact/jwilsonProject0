@@ -9,7 +9,7 @@ pipeline {
         }
         stage('deploy'){
         	steps{
-        		sh 'cp /home/ubuntu/.jenkins/jobs/InventoryTracker/target/inventorytracker.war /home/ubuntu/apache-tomcat-8.5.60/webapps'
+        		sh 'cp /home/ubuntu/.jenkins/workspace/InventoryTracker/target/inventorytracker.war /home/ubuntu/apache-tomcat-8.5.60/webapps'
         	}
         }
     }
