@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('package') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+        stage('deploy'){
+        	steps{
+        		sh 'cp /home/ubuntu/.jenkins/jobs/InventoryTracker/target/inventorytracker.war /home/ubuntu/apache-tomcat-8.5.60/webapps'
+        	}
+        }
+    }
+}
