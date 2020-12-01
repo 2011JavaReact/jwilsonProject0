@@ -5,6 +5,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 
 import org.generictech.InventoryTracker.DAO.LoginDAO;
@@ -28,7 +29,7 @@ public class LoginTests {
 	private String salt;
 	
 	@Before
-	public void prep() throws NoSuchAlgorithmException {
+	public void prep() throws NoSuchAlgorithmException, InvalidKeySpecException {
 		mockedDAO = mock(LoginDAO.class);
 		loginService = new LoginService(mockedDAO);
 		PasswordHashingUtility hash = new PasswordHashingUtility();
@@ -40,9 +41,10 @@ public class LoginTests {
 	 * Test to test a valid login to the database
 	 * @throws NoSuchAlgorithmException
 	 * @throws SQLException
+	 * @throws InvalidKeySpecException 
 	 */
 	@Test 
-	public void validLoginTest() throws NoSuchAlgorithmException, SQLException {
+	public void validLoginTest() throws NoSuchAlgorithmException, SQLException, InvalidKeySpecException {
 		when(mockedDAO.getLoginInfo("Ttester")).thenReturn(new AuthDTO(1, "Ttester", password, salt, true));
 		
 		assertNotEquals(null, loginService.login(new CredentialsDTO("Ttester", "mySecretPassword")));
@@ -52,9 +54,10 @@ public class LoginTests {
 	 * Test to test a login with an incorrect password.
 	 * @throws NoSuchAlgorithmException
 	 * @throws SQLException
+	 * @throws InvalidKeySpecException 
 	 */
 	@Test 
-	public void invalidLoginTest() throws NoSuchAlgorithmException, SQLException {
+	public void invalidLoginTest() throws NoSuchAlgorithmException, SQLException, InvalidKeySpecException {
 		when(mockedDAO.getLoginInfo("Ttester")).thenReturn(new AuthDTO(1, "Ttester", password, salt, true));
 		
 		assertEquals(null, loginService.login(new CredentialsDTO("Ttester", "myWrongPassword")));

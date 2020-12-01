@@ -1,6 +1,7 @@
 package org.generictech.InventoryTracker.service;
 
 import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 
 import org.generictech.InventoryTracker.DAO.SystemUserDAO;
@@ -33,8 +34,9 @@ public class SystemUserService {
 	 * @return User object containing non private user data. 
 	 * @throws SQLException
 	 * @throws NoSuchAlgorithmException 
+	 * @throws InvalidKeySpecException 
 	 */
-	public User insertSystemUser(SystemUserDTO systemUserData) throws SQLException, NoSuchAlgorithmException {
+	public User insertSystemUser(SystemUserDTO systemUserData) throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException {
 		PasswordHashingUtility hash = new PasswordHashingUtility();
 		String salt = hash.getSalt();
 		systemUserData.setPassword(hash.generateHash(systemUserData.getPassword(), salt.getBytes()));

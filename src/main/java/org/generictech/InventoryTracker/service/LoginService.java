@@ -1,6 +1,7 @@
 package org.generictech.InventoryTracker.service;
 
 import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 
 import javax.security.auth.login.LoginContext;
@@ -40,8 +41,9 @@ public class LoginService {
 	 * @return User object with user details to allow session creation
 	 * @throws SQLException
 	 * @throws NoSuchAlgorithmException
+	 * @throws InvalidKeySpecException 
 	 */
-	public User login(CredentialsDTO credentials) throws SQLException, NoSuchAlgorithmException {
+	public User login(CredentialsDTO credentials) throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException {
 		AuthDTO authData =  loginDAO.getLoginInfo(credentials.getUsername());
 		PasswordHashingUtility hash = new PasswordHashingUtility();
 		boolean success =  hash.validatePassword(credentials.getPassword(), authData.getPassword()

@@ -2,6 +2,7 @@ package org.generictech.InventoryTracker.servlets;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -50,6 +51,9 @@ public class SystemUserServlet extends HttpServlet {
 				res.setStatus(400);
 				e.printStackTrace();
 			} catch (NoSuchAlgorithmException e) {
+				res.setStatus(500);
+				e.printStackTrace();
+			} catch (InvalidKeySpecException e) {
 				res.setStatus(500);
 				e.printStackTrace();
 			}

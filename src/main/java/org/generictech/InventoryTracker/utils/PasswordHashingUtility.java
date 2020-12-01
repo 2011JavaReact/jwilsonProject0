@@ -1,9 +1,13 @@
 package org.generictech.InventoryTracker.utils;
 
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
+
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 
 public class PasswordHashingUtility {
 	/**
@@ -12,13 +16,14 @@ public class PasswordHashingUtility {
 	 * @param salt String value for the salt to be used with the password.
 	 * @return String 
 	 * @throws NoSuchAlgorithmException
+	 * @throws InvalidKeySpecException 
 	 */
-	public String generateHash(String passwd, byte[] salt) throws NoSuchAlgorithmException {
-		MessageDigest md = MessageDigest.getInstance("SHA-256");
-		md.update(salt);		
-		byte[] hash = md.digest(passwd.getBytes(StandardCharsets.UTF_8));
-		String data = getString(hash);
-		return data;
+	public String generateHash(String passwd, byte[] salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
+		KeySpec spec = new PBEKeySpec(passwd.toCharArray(), salt, 131072, 256);
+		SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+		byte[] hash = factory.generateSecret(spec).getEncoded();
+		
+		return getString(hash);
 	}
 	
 	/**
@@ -26,10 +31,11 @@ public class PasswordHashingUtility {
 	 * @param password String value of password to be checked
 	 * @param hashedPassword Hashed password for user
 	 * @param salt String value for the hash used for the users password
-	 * @return boolean value stating wether the user is authenticated or not. 
+	 * @return boolean value stating whether the user is authenticated or not. 
 	 * @throws NoSuchAlgorithmException
+	 * @throws InvalidKeySpecException 
 	 */
-	public boolean validatePassword(String password, String hashedPassword, String salt) throws NoSuchAlgorithmException {
+	public boolean validatePassword(String password, String hashedPassword, String salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		String hashedSet = generateHash(password, salt.getBytes(StandardCharsets.UTF_8));
 		return hashedPassword.equals(hashedSet);
 	}
@@ -46,7 +52,7 @@ public class PasswordHashingUtility {
 	}
 	
 	/**
-	 * Helper method to conver byte[] values used in hashing to strings for simpelr database storage. 
+	 * Helper method to convert byte[] values used in hashing to strings for simpler database storage. 
 	 * @param in byte[] value to be converted
 	 * @return String version of entered byte[].
 	 */
