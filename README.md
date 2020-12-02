@@ -43,7 +43,7 @@ This endpoint creates a new product. Send product data in a JSON string fomated 
     "unitPrice": 9.99
 }
 ```
-The response will also be in JSON showing the data of the new product. Including the product id for later use. 
+The response will also be in JSON showing the data of the new product. Including the product id for later use. A successful insert will return a status code 201. 
 ```json
 {
     "productId": 4,
@@ -160,6 +160,7 @@ Example response:
 }
 ```
 (LastUpdatedBy data will be excluded for standard users.)
+A successful post insert will return a status code 201. 
 ### PUT /inventory
 A PUT request to the /inventory enpoint will update inventory records on the database. The id value of the inventory record you want to update should be included in the URI
 > /inventory/{id}
@@ -235,7 +236,7 @@ Include necessary data as a JSON string.
     "isManager": true
 }
 ```
-A 200 status response will be returned with basic user data. 
+A 201 status response will be returned with basic user data. 
 ```json
 {
     "systemUserId": 3,
