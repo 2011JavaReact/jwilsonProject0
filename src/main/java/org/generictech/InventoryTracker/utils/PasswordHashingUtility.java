@@ -9,6 +9,11 @@ import java.security.spec.KeySpec;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
+/**
+ * Class to handle password hashing throughout the project. 
+ * @author Jaden Wilson
+ * @since 1.0
+ */
 public class PasswordHashingUtility {
 	/**
 	 * Method to generate a hashed password and salt to go with the hash. 

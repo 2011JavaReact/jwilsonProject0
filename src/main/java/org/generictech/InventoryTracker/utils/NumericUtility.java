@@ -1,5 +1,11 @@
 package org.generictech.InventoryTracker.utils;
 
+/**
+ * Class with utility methods dealing with numbers. 
+ * Specifically seeing if strings are numbers
+ * @author Jaden Wilson
+ *
+ */
 public class NumericUtility {
 
 	/**

@@ -96,6 +96,10 @@ public class InventoryDTO {
 		this.username = username;
 	}
 
+	/**
+	 * Overridden toString method
+	 * @return string representation of the InventoryDTO object
+	 */
 	@Override
 	public String toString() {
 		return "InventoryDTO Details: [quantity=" + quantity + ", productId=" + productId + ", lastUpdateDate=" + lastUpdateDate

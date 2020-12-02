@@ -133,6 +133,7 @@ public class Product {
 	@Override
 	/**
 	 * Overridden implementation of the toString function.
+	 * @return string representation of the product object
 	 */
 	public String toString() {
 		return "Product Details: [productId=" + productId + ", productName=" + productName + ", description=" + description

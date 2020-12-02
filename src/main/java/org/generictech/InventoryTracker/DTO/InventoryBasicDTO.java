@@ -100,6 +100,10 @@ public class InventoryBasicDTO {
 	}
 	
 
+	/**
+	 * Overriden to string method
+	 * @return string representation of the inventoryBasicDTO object
+	 */
 	@Override
 	public String toString() {
 		return "InventoryBasicDTO Details: [inventoryID " + inventoryID + " quantity=" + quantity + ", product=" + product + "]";
