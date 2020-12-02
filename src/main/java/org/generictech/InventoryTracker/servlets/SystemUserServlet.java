@@ -46,6 +46,7 @@ public class SystemUserServlet extends HttpServlet {
 			try {
 				SystemUserDTO systemUserData = om.readValue(req.getReader(), SystemUserDTO.class);
 				res.getWriter().append(om.writeValueAsString(systemUserService.insertSystemUser(systemUserData)));
+				res.setStatus(201);
 				res.setContentType("application/json");
 			} catch (SQLException e) {
 				res.setStatus(400);

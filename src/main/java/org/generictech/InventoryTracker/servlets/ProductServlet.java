@@ -101,6 +101,7 @@ public class ProductServlet extends HttpServlet {
 				ProductDTO productData = om.readValue(req.getReader(), ProductDTO.class);
 				Product p = productService.insertProduct(productData);
 				res.getWriter().append(om.writeValueAsString(p));
+				res.setStatus(201);
 			} catch (SQLException e) {
 				e.printStackTrace();
 				res.setStatus(400);

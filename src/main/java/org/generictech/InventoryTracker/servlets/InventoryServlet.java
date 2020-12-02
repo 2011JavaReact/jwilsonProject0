@@ -110,6 +110,7 @@ public class InventoryServlet extends HttpServlet {
 				} else {
 					res.getWriter().append(om.writeValueAsString(inventoryService.basicInsertInventory(inventoryData)));
 				}
+				res.setStatus(201);
 				res.setContentType("application/json");
 			} catch (JsonProcessingException e) {
 				res.setStatus(400);
