@@ -36,3 +36,72 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  background-color: black;
+  height: 600px;
+  padding: 0 50px;
+}
+
+label {
+  float: left;
+  padding: 10px;
+  font-size: 17px;
+}
+
+h1, p{
+  text-align: center;
+}
+
+h1, h2, p, label {
+  color: whitesmoke;
+}
+
+#login-form, h2, #showcase, .form-container {
+  padding: 20px;
+}
+
+.form-group {
+  margin-left: 30%;
+}
+
+.form-container {
+  border: 2px solid white;
+  border-radius: 5px;
+  max-width: 60%;
+  text-align: center;
+  margin-left: 19%;
+}
+
+#logo {
+  float: left;
+  color: whitesmoke;
+}
+
+.navbar {
+  overflow: auto;
+}
+
+.navbar h1 {
+  color: whitesmoke;
+}
+
+.navbar ul {
+  float: right;
+  list-style: none;
+}
+
+.navbar ul li {
+  float: left;
+}
+
+.navbar ul li a{
+  display: block;
+  text-align: center;
+  padding: 20px;
+  color: whitesmoke;
+}
+
+.navbar ul li a:hover {
+  background: 
+}

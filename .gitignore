@@ -24,3 +24,5 @@ yarn-error.log*
 target/
 **/.*
 !.gitignore
+
+/package-lock.json
