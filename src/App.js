@@ -1,10 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
 import HomePage from './components/pages/HomePage';
-import ViewPage from './components/pages/ViewPage';
+import ProductPage from './components/pages/ProductPage';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import AddPage from './components/pages/AddPage';
+import AddInventoryPage from './components/pages/AddInventoryPage';
 import Navbar from './components/Navbar';
+import InventoryPage from './components/pages/InventoryPage';
+import AddProductPage from './components/pages/AddProductPage';
 
 
 function App() {
@@ -14,8 +16,10 @@ function App() {
       <Navbar/>
       <Switch>
         <Route exact path='/' component={HomePage}/>
-        <Route exact path='/view-inventory' component={ViewPage}/>
-        <Route exact path='/add' component={AddPage}/>
+        <Route exact path='/view-products' component={ProductPage}/>
+        <Route exact path='/view-inventory' component={InventoryPage}/>
+        <Route exact path='/add-inventory' component={AddInventoryPage}/>
+        <Route exact path='/add-product' component={AddProductPage}/>
         <Route path='/' render={()=> <div>404 Not Found</div>}/>
       </Switch>
     </Router>

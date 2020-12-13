@@ -17,7 +17,19 @@ const Navbar = () => {
                         <NavLink exact to='/view-inventory'>View Inventory</NavLink>
                         </li>
                         <li className="nav-item">
-                        <NavLink exact to='/add'>Add User</NavLink>
+                        <NavLink exact to='/view-products'>View Products</NavLink>
+                        </li>
+                        <li className="nav-item">
+                        <NavLink exact to='/add-inventory'>Add Inventory</NavLink>
+                        </li>
+                        <li className="nav-item">
+                        <NavLink exact to='/add-products'>Add Products</NavLink>
+                        </li>
+                        <li className="nav-item">
+                        <NavLink exact to='/add-user'>Add User</NavLink>
+                        </li>
+                        <li className="nav-item">
+                        <NavLink exact to='/logout'>Logout</NavLink>
                         </li>
                     </ul>
                 </div>

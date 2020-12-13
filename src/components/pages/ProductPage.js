@@ -3,12 +3,15 @@ import Axios from 'axios';
 import Product from '../Product';
 
 //Functional component
-const ViewPage  = () => {
+const ProductPage  = () => {
+
     const [products, setProducts] = useState([]);
+    const url = 'http://localhost:8080/inventorytracker/product';
+    //const url = 'http://inventory.generictech.org:8080/inventorytracker/product';
 
     const getProduct = async () => {
         const resp = await Axios.get(
-            'http://inventory.generictech.org:8080/inventorytracker/product', 
+            url, 
             {withCredentials:true});
 
         setProducts(resp.data);
@@ -22,7 +25,7 @@ const ViewPage  = () => {
     //Table view from DB
     return (
         <div className="container">
-            <h2>Product Table</h2>            
+            <h2>Products</h2>            
             <table className="table table-dark table-striped" id="product-table">
                 <thead>
                     <tr>
@@ -44,4 +47,4 @@ const ViewPage  = () => {
     );
 }
 
-export default ViewPage;
+export default ProductPage;
