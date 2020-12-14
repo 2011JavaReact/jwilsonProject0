@@ -1,6 +1,8 @@
 import React from 'react';
+import Axios from 'axios';
 
-const Product = ({product}) => {
+//Returns table retrieved from database
+const Product = ({product, id}) => {
 
     return (
         <tr>
@@ -8,6 +10,7 @@ const Product = ({product}) => {
             <td>{product.productName}</td>
             <td>{product.description}</td>
             <td>{product.unitPrice}</td>
+            <td><button type="button" className="btn btn-danger">Delete</button></td>
         </tr>
     )
 }

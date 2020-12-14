@@ -39,6 +39,9 @@
 
 body {
   background-color: black;
+  background-image: url("images/warehouse.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
   height: 600px;
   padding: 0 50px;
 }
@@ -53,8 +56,12 @@ h1, p{
   text-align: center;
 }
 
-h1, h2, p, label {
+#showcase h2 {
   color: whitesmoke;
+}
+
+h1, p, label {
+  color: black;
 }
 
 #login-form, h2, #showcase, .form-container {
@@ -72,6 +79,16 @@ h1, h2, p, label {
   text-align: center;
   margin-left: 19%;
   margin-top: 15%;
+  background-color: black;
+}
+
+.container h2 {
+  font-size: 5em;
+  color: black;
+}
+
+.form-container h2, label {
+  color: whitesmoke;
 }
 
 #logo {
@@ -81,15 +98,13 @@ h1, h2, p, label {
 
 .navbar {
   overflow: auto;
-}
-
-.navbar h1 {
-  color: whitesmoke;
+  background-color: black;
 }
 
 .navbar ul {
   float: right;
   list-style: none;
+  padding-left: 5px;
 }
 
 .navbar ul li {

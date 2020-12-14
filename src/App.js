@@ -7,6 +7,7 @@ import AddInventoryPage from './components/pages/AddInventoryPage';
 import Navbar from './components/Navbar';
 import InventoryPage from './components/pages/InventoryPage';
 import AddProductPage from './components/pages/AddProductPage';
+import AddUserPage from './components/pages/AddUserPage';
 
 
 function App() {
@@ -20,7 +21,8 @@ function App() {
         <Route exact path='/view-inventory' component={InventoryPage}/>
         <Route exact path='/add-inventory' component={AddInventoryPage}/>
         <Route exact path='/add-product' component={AddProductPage}/>
-        <Route path='/' render={()=> <div>404 Not Found</div>}/>
+        <Route exact path='/add-user' component={AddUserPage}/>
+        <Route path='/' render={() => <div>404 Not Found</div>}/>
       </Switch>
     </Router>
   );

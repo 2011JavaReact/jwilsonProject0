@@ -9,7 +9,7 @@ const ProductPage  = () => {
     const url = 'http://localhost:8080/inventorytracker/product';
     //const url = 'http://inventory.generictech.org:8080/inventorytracker/product';
 
-    const getProduct = async () => {
+    const getProducts = async () => {
         const resp = await Axios.get(
             url, 
             {withCredentials:true});
@@ -19,13 +19,13 @@ const ProductPage  = () => {
     }
 
     useEffect(() => {
-        getProduct();
+        getProducts();
     }, []);
 
     //Table view from DB
     return (
         <div className="container">
-            <h2>Products</h2>            
+            <h2><b>Products</b></h2>            
             <table className="table table-dark table-striped" id="product-table">
                 <thead>
                     <tr>

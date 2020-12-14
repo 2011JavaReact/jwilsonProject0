@@ -7,35 +7,25 @@ const url = 'http://localhost:8080/inventorytracker/inventory';
 
 export default class AddInventoryPage extends React.Component {
     //State management for form data
-    //const [formData, setFormData] = useState({});
     constructor(props) {
         super(props);
         this.state = {
             quantity: 0,
             productId: 0,
-            lastUpdateDate: " ",
-            username: " "
+            lastUpdateDate: "",
+            username: ""
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    //Post form data to endpoint
-    /* const addRecord =  (e) => {
-        e.preventDefault();
-        Axios.post(
-            url, 
-            formData, 
-            {withCredentials:true}
-        ).then(resp => console.log(resp));
-    } */
-
     //Changes form data state based on form attributes entered
     handleChange(event)  {
         this.setState({[event.target.name]: event.target.value});
     }
 
+    //Post form data to endpoint
     handleSubmit(event) {
         event.preventDefault();
         Axios.post(

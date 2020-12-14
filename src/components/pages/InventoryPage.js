@@ -24,7 +24,7 @@ const InventoryPage = () => {
     //Table view from DB
     return (
         <div className="container">
-            <h2>Inventory Table</h2>            
+            <h2><b>Inventory</b></h2>            
             <table className="table table-dark table-striped" id="inventory-table">
                 <thead>
                     <tr>

@@ -7,7 +7,6 @@ const url = 'http://localhost:8080/inventorytracker/product';
 
 export default class AddProductPage extends React.Component {
     //State management for form data
-    //const [formData, setFormData] = useState({});
     constructor(props) {
         super(props);
         this.state = {
@@ -20,21 +19,12 @@ export default class AddProductPage extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    //Post form data to endpoint
-    /* const addRecord =  (e) => {
-        e.preventDefault();
-        Axios.post(
-            url, 
-            formData, 
-            {withCredentials:true}
-        ).then(resp => console.log(resp));
-    } */
-
     //Changes form data state based on form attributes entered
     handleChange(event)  {
         this.setState({[event.target.name]: event.target.value});
     }
 
+    //Post form data to endpoint
     handleSubmit(event) {
         event.preventDefault();
         Axios.post(
@@ -49,7 +39,7 @@ export default class AddProductPage extends React.Component {
         //Add new data
             <div>
                 <div className="form-container">
-                    <h2>Add Inventory Record</h2>
+                    <h2>Add Product</h2>
                     <form onSubmit={this.handleSubmit} action="/view-products">
                         <div className="form-group">
                             <label htmlFor="productName">Product Name:</label>

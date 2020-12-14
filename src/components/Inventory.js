@@ -1,5 +1,6 @@
 import React from 'react';
 
+//Returns table retrieved from database
 const Inventory = ({inventory}) => {
 
     return (
@@ -9,6 +10,7 @@ const Inventory = ({inventory}) => {
             <td>{inventory.product.productId}</td> 
             <td>{inventory.lastUpdateDate}</td>
             <td>{inventory.lastUpdatedBy.username}</td>
+            <td><button type="button" className="btn btn-danger">Delete</button></td>
         </tr>
     )
 }

@@ -16,13 +16,6 @@ const HomePage = () => {
 
         e.preventDefault();
 
-       /*  fetch("http://inventory.generictech.org:8080/inventorytracker/login", {
-            method: 'POST',
-            mode: 'cors',
-            credentials: 'include',
-            body: JSON.stringify({userData})
-        }).then(resp => resp.json()).then(data => console.log(data)); */
-
         const username = document.getElementById("username").value;
         const password = document.getElementById("password").value;
         const userData = {
@@ -44,7 +37,6 @@ const HomePage = () => {
         <div id="showcase">
             <div className="my-container">
                 <div id="showcase-content">
-                    <h1>Inventory Tracker</h1>
                 </div>
                 <div className="form-container">
                     <h2>Login</h2>
